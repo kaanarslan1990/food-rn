@@ -1,10 +1,11 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
-export default function FoodOverViewScreen() {
+export default function FoodOverViewScreen({route}) {
+    const categoryId = route.params.categoryId
   return (
     <View>
-      <Text>FoodOverViewScreen</Text>
+      <Text>{categoryId}</Text>
     </View>
   )
 }
