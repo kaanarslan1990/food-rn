@@ -6,28 +6,46 @@ import {
   Text,
   View,
 } from "react-native";
-import React, { useLayoutEffect } from "react";
+import React, { useContext, useLayoutEffect } from "react";
 import { FOODS } from "../data/dummy-data";
 import FoodIngredients from "../components/FoodIngredients";
 import { Ionicons } from "@expo/vector-icons";
+import { FavouriteContext } from "../store/favouriteContext";
 
 export default function FoodDetailScreen({ route, navigation }) {
+  const favouriteFoodContext = useContext(FavouriteContext);
+
   const foodId = route.params.foodId;
   const selectedFood = FOODS.find((food) => food.id === foodId);
-  const pressHandler= () => {
+  const foodIsFavourite = favouriteFoodContext.ids.includes(foodId);
 
+  const pressHandler = () => {};
+  function changeFavourite() {
+    if (foodIsFavourite) {
+      favouriteFoodContext.removeFavourite(foodId);
+    } else {
+      favouriteFoodContext.addFavourite(foodId);
+    }
   }
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => {
         return (
-          <Pressable onPress={pressHandler} style={({pressed})=> (pressed ? styles.pressed:null)}>
-            <Ionicons name="star-half-sharp" size={24} color="white" />
+          <Pressable
+            onPress={pressHandler}
+            style={({ pressed }) => (pressed ? styles.pressed : null)}
+          >
+            <Ionicons
+              name={foodIsFavourite ? "star" : "star-outline"}
+              size={24}
+              color="white"
+              onPress={changeFavourite}
+            />
           </Pressable>
         );
       },
     });
-  }, [navigation]);
+  }, [navigation,changeFavourite]);
 
   return (
     <ScrollView style={styles.rootContainer}>
@@ -87,7 +105,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
   },
-  pressed:{
-    opacity:0.6
-  }
+  pressed: {
+    opacity: 0.6,
+  },
 });

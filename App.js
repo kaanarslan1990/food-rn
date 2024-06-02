@@ -7,6 +7,7 @@ import FoodDetailScreen from "./screens/FoodDetailScreen";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import FavouriteScreen from "./screens/FavouriteScreen";
 import { Ionicons } from '@expo/vector-icons';
+import FavouriteContextProvider from "./store/favouriteContext";
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -47,6 +48,7 @@ function DrawerNavigator() {
 export default function App() {
   return (
     <NavigationContainer>
+      <FavouriteContextProvider>
       <Stack.Navigator
         screenOptions={{
           headerStyle: { backgroundColor: "blue" },
@@ -66,6 +68,7 @@ export default function App() {
           options={{ title: "Ingredient" }}
         />
       </Stack.Navigator>
+      </FavouriteContextProvider>
     </NavigationContainer>
   );
 }
