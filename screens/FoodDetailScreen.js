@@ -11,20 +11,27 @@ import { FOODS } from "../data/dummy-data";
 import FoodIngredients from "../components/FoodIngredients";
 import { Ionicons } from "@expo/vector-icons";
 import { FavouriteContext } from "../store/favouriteContext";
+import { useDispatch, useSelector } from "react-redux";
+import { addFavourite, removeFavourite } from "../store/redux/favourites";
 
 export default function FoodDetailScreen({ route, navigation }) {
-  const favouriteFoodContext = useContext(FavouriteContext);
+  // const favouriteFoodContext = useContext(FavouriteContext);
+  const favouriteFoodIds = useSelector((state)=> state.favouriteFoods.ids);
 
   const foodId = route.params.foodId;
+  const dispatch = useDispatch()
   const selectedFood = FOODS.find((food) => food.id === foodId);
-  const foodIsFavourite = favouriteFoodContext.ids.includes(foodId);
+  // const foodIsFavourite = favouriteFoodContext.ids.includes(foodId);
+  const foodIsFavourite = favouriteFoodIds.includes(foodId);
 
   const pressHandler = () => {};
   function changeFavourite() {
     if (foodIsFavourite) {
-      favouriteFoodContext.removeFavourite(foodId);
+      // favouriteFoodContext.removeFavourite(foodId);
+      dispatch(removeFavourite({id:foodId}))
     } else {
-      favouriteFoodContext.addFavourite(foodId);
+      // favouriteFoodContext.addFavourite(foodId);
+      dispatch(addFavourite({id:foodId}))
     }
   }
   useLayoutEffect(() => {
