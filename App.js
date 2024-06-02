@@ -2,7 +2,7 @@ import { StatusBar, StyleSheet, Text, View } from "react-native";
 import CategoriesScreen from "./screens/CategoriesScreen";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
-import FoodOverViewScreen from "./components/FoodOverViewScreen";
+import FoodOverViewScreen from "./screens/FoodOverViewScreen";
 import FoodDetailScreen from "./screens/FoodDetailScreen";
 
 const Stack = createNativeStackNavigator();
